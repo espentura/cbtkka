@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBT KKA SMP NEGERI 1 JEPARA - ESPENTURA JUARA</title>
+    
+    <!-- React & Babel CDNs -->
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Tailwind CSS, Chart.js & Phosphor Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; color: #1f2937; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        /* Print Styles */
+        .print-only { display: none; }
+        @media print {
+            @page { margin: 1.5cm; }
+            body { background-color: #fff; color: #000; }
+            .no-print { display: none !important; }
+            .print-only { display: block; }
+            .page-break { page-break-after: always; }
+            .print-container { width: 100%; max-width: none; margin: 0; padding: 0; box-shadow: none; }
+            table { border-collapse: collapse; width: 100%; }
+            th, td { border: 1px solid #000; padding: 8px; text-align: left; }
+            th { background-color: #f2f2f2 !important; -webkit-print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const EspenturaLogo = ({ className = "w-12 h-12" }) => (
+            <svg viewBox="0 0 200 240" className={className} xmlns="http://www.w3.org/2000/svg">
+                {/* Shield Outer Path */}
+                <path d="M 10 10 L 190 10 L 175 190 L 100 230 L 25 190 Z" fill="#0c62b6" stroke="#074482" strokeWidth="4" />
+                {/* SMP Text */}
+                <text x="100" y="42" textAnchor="middle" fill="#ffffff" fontFamily="Inter, sans-serif" fontWeight="900" fontSize="26" letterSpacing="3">SMP</text>
+                {/* Yellow Star */}
+                <polygon points="100,50 103,58 111,58 104,63 107,71 100,66 93,71 96,63 89,58 97,58" fill="#fbbf24" />
+                {/* Yellow Wings */}
+                <path d="M 100 140 C 60 130 30 90 35 55 C 45 95 65 125 100 135 Z" fill="#f59e0b" />
+                <path d="M 100 140 C 140 130 170 90 165 55 C 155 95 135 125 100 135 Z" fill="#f59e0b" />
+                {/* Feathers detail */}
+                <path d="M 38 65 C 30 100 65 135 95 145 C 70 135 48 110 45 80 Z" fill="#facc15" />
+                <path d="M 162 65 C 170 100 135 135 105 145 C 130 135 152 110 155 80 Z" fill="#facc15" />
+                {/* Red Number 1 */}
+                <path d="M 90 85 L 102 75 L 102 125 L 90 125 L 90 115 L 96 115 L 96 87 L 90 91 Z" fill="#dc2626" stroke="#991b1b" strokeWidth="1.5" />
+                {/* Green Torch stem */}
+                <path d="M 85 125 L 115 125 L 110 148 L 90 148 Z" fill="#16a34a" />
+                {/* Open Book */}
+                <path d="M 100 160 Q 60 145 25 155 L 25 180 Q 60 170 100 185 Q 140 170 175 180 L 175 155 Q 140 145 100 160 Z" fill="#ffffff" stroke="#1e293b" strokeWidth="2" />
+                <line x1="100" y1="160" x2="100" y2="185" stroke="#1e293b" strokeWidth="2" />
+                {/* Pen Nib */}
+                <path d="M 96 142 L 104 142 L 102 165 L 98 165 Z" fill="#1e293b" />
+                <polygon points="100,172 96,162 104,162" fill="#1e293b" />
+                {/* JEPARA Text */}
+                <text x="100" y="215" textAnchor="middle" fill="#ffffff" fontFamily="Inter, sans-serif" fontWeight="800" fontSize="20" letterSpacing="2">JEPARA</text>
+            </svg>
+        );
+
+        const rawQuestions = [
+            // TP 1: Konsep & Pengumpulan Data
+            { id: 1, no: 1, tp: 1, materi: "Konsep Data", indikator: "Mengidentifikasi jenis data", level: "C2", type: "PG", stimulus: "Andi mengukur suhu di ruang server sekolah menggunakan termometer digital.", text: "Jenis data yang didapatkan Andi berupa angka derajat celcius. Data ini disebut...", options: { A: "Data Kualitatif", B: "Data Kuantitatif", C: "Data Nominal", D: "Data Ordinal" }, answer: "B", weight: 2 },
+            { id: 2, no: 2, tp: 1, materi: "Pengumpulan Data", indikator: "Menentukan metode pengumpulan", level: "C3", type: "PG", stimulus: "Ketua OSIS ingin mengetahui tingkat kepuasan siswa terhadap menu baru di kantin.", text: "Metode pengumpulan data yang paling efisien dan menjangkau banyak responden adalah...", options: { A: "Wawancara satu per satu", B: "Observasi diam-diam", C: "Kuesioner online (Google Forms)", D: "Menghitung sisa makanan" }, answer: "C", weight: 2 },
+            { id: 3, no: 3, tp: 1, materi: "Sistematisasi Data", indikator: "Menganalisis format penyimpanan", level: "C4", type: "PG", stimulus: "Guru meminta siswa mendata absensi secara digital.", text: "Format tabel yang paling sistematis untuk mendata absensi harian adalah...", options: { A: "Kolom: Nama, Hobi, Cita-cita", B: "Kolom: Tanggal, Nama, Keterangan (H/I/S/A)", C: "Kolom: Nomor Urut, Nama Guru", D: "Hanya daftar nama yang tidak hadir dalam satu paragraf" }, answer: "B", weight: 2 },
+            { id: 4, no: 4, tp: 1, materi: "Sumber Data", indikator: "Membedakan primer dan sekunder", level: "C2", type: "PG", stimulus: "", text: "Mengunduh data sensus penduduk dari website BPS (Badan Pusat Statistik) merupakan contoh pengumpulan data...", options: { A: "Primer", B: "Sekunder", C: "Observasi", D: "Eksperimen" }, answer: "B", weight: 2 },
+            { id: 5, no: 5, tp: 1, materi: "Validasi Data", indikator: "Mengevaluasi kualitas data", level: "C5", type: "PG", stimulus: "Survei 'Olahraga Favorit SMP Espentura' disebarkan HANYA kepada anggota ekskul Basket.", text: "Mengapa hasil survei ini dianggap kurang valid?", options: { A: "Karena pertanyaannya terlalu sulit", B: "Karena menggunakan Google Forms", C: "Karena sampel tidak merepresentasikan seluruh siswa", D: "Karena basket adalah olahraga yang melelahkan" }, answer: "C", weight: 2 },
+            { id: 6, no: 6, tp: 1, materi: "Privasi Data", indikator: "Menerapkan etika pengumpulan data", level: "C3", type: "PG", stimulus: "Dalam membuat form pendaftaran lomba e-sports antar kelas, panitia meminta data PIN ATM peserta.", text: "Tindakan panitia tersebut...", options: { A: "Boleh, untuk memastikan peserta punya uang", B: "Boleh, agar mudah memberi hadiah", C: "Melanggar etika privasi data", D: "Sangat dianjurkan demi keamanan" }, answer: "C", weight: 2 },
+            { id: 7, no: 7, tp: 1, materi: "Instrumen Data", indikator: "Memilih alat pengumpulan data otomatis", level: "C4", type: "PGK", stimulus: "Sekolah ingin memonitor kelembaban udara di rumah kaca biologi secara otomatis 24 jam.", text: "Alat yang tepat digunakan adalah:", options: { A: "Sensor kelembaban (DHT11/DHT22)", B: "Kuesioner lembar kertas", C: "Mikrokontroler pencatat data (Data Logger)", D: "Wawancara dengan petugas kebun" }, answer: ["A", "C"], weight: 3 },
+            { id: 8, no: 8, tp: 1, materi: "Konsep Data", indikator: "Membedakan data numerik dan teks", level: "C3", type: "PGK", stimulus: "Perhatikan data berikut:\n1. Suhu: 24°C\n2. Warna cat: Biru\n3. Jarak rumah: 2 km\n4. Review: 'Makanan enak'", text: "Manakah yang merupakan data kualitatif?", options: { A: "Nomor 1", B: "Nomor 2", C: "Nomor 3", D: "Nomor 4" }, answer: ["B", "D"], weight: 3 },
+            { id: 9, no: 9, tp: 1, materi: "Validasi Form", indikator: "Menerapkan aturan tipe data", level: "C3", type: "BS", stimulus: "Pada pembuatan form digital, kolom 'Usia' sebaiknya diatur dengan tipe input 'Number' agar data yang masuk konsisten berupa angka.", text: "Pernyataan tersebut BENAR atau SALAH?", answer: "BENAR", weight: 2 },
+            { id: 10, no: 10, tp: 1, materi: "Representasi Data", indikator: "Mengevaluasi representasi", level: "C4", type: "BS", stimulus: "Menyimpan data pendaftaran siswa baru dalam bentuk video rekaman wawancara lebih mudah diolah oleh komputer daripada menyimpannya dalam format tabel (database).", text: "Pernyataan tersebut BENAR atau SALAH?", answer: "SALAH", weight: 2 },
+            { id: 11, no: 11, tp: 1, materi: "Terminologi", indikator: "Menyebutkan format file", level: "C2", type: "IS", stimulus: "", text: "Format file teks sederhana yang memisahkan nilai datanya menggunakan tanda koma dan sering digunakan untuk export/import data disebut...", altAnswers: ["csv", ".csv"], weight: 2 },
+            { id: 12, no: 12, tp: 1, materi: "Terminologi", indikator: "Menyebutkan istilah dasar", level: "C2", type: "IS", stimulus: "", text: "Kumpulan fakta atau statistik yang dikumpulkan untuk dianalisis disebut...", altAnswers: ["data", "dataset"], weight: 2 },
+
+            // TP 2: Mengidentifikasi Pola Data
+            { id: 13, no: 13, tp: 2, materi: "Membaca Grafik", indikator: "Menganalisis tren dari grafik", level: "C4", type: "PG", stimulus: "Grafik Kunjungan Perpus:\nSenin: 120\nSelasa: 115\nRabu: 110\nKamis: 50\nJumat: 20", text: "Pola apa yang terlihat dari data tersebut?", options: { A: "Kunjungan stabil sepanjang minggu", B: "Kunjungan selalu naik", C: "Terjadi penurunan tajam menjelang akhir pekan", D: "Hari Jumat adalah puncak kunjungan" }, answer: "C", weight: 2 },
+            { id: 14, no: 14, tp: 2, materi: "Korelasi", indikator: "Mengidentifikasi hubungan", level: "C3", type: "PG", stimulus: "Data kantin: Semakin panas cuaca (suhu naik), semakin banyak es teh yang terjual.", text: "Hubungan antara suhu dan penjualan es teh disebut korelasi...", options: { A: "Positif", B: "Negatif", C: "Nol", D: "Tidak berhubungan" }, answer: "A", weight: 2 },
+            { id: 15, no: 15, tp: 2, materi: "Anomali Data", indikator: "Menemukan nilai pencilan", level: "C4", type: "PG", stimulus: "Data penggunaan air (liter) per hari: 500, 520, 510, 5000, 490, 505.", text: "Nilai manakah yang merupakan anomali (outlier)?", options: { A: "500", B: "510", C: "490", D: "5000" }, answer: "D", weight: 2 },
+            { id: 16, no: 16, tp: 2, materi: "Visualisasi Data", indikator: "Memilih grafik yang tepat", level: "C3", type: "PG", stimulus: "Kita ingin melihat persentase penyebaran hobi siswa (Olahraga 40%, Musik 30%, Seni 30%).", text: "Grafik yang paling tepat untuk visualisasi proporsi ini adalah...", options: { A: "Grafik Garis (Line Chart)", B: "Grafik Lingkaran (Pie Chart)", C: "Scatter Plot", D: "Histogram" }, answer: "B", weight: 2 },
+            { id: 17, no: 17, tp: 2, materi: "Klasifikasi", indikator: "Mengelompokkan data", level: "C3", type: "PG", stimulus: "Terdapat data nilai KKA: 90, 85, 40, 95, 30. Guru ingin membuat algoritma pemisahan 'Tuntas' (>=75) dan 'Remedial' (<75).", text: "Berapa banyak siswa yang masuk kelompok Remedial?", options: { A: "1", B: "2", C: "3", D: "4" }, answer: "B", weight: 2 },
+            { id: 18, no: 18, tp: 2, materi: "Logika Pola", indikator: "Melanjutkan deret data", level: "C4", type: "PG", stimulus: "Log aktivitas server mencatat ID error berurutan: E02, E04, E06, E08.", text: "Jika pola berlanjut, ID berikutnya adalah...", options: { A: "E09", B: "E10", C: "E12", D: "E14" }, answer: "B", weight: 2 },
+            { id: 19, no: 19, tp: 2, materi: "Analisis Tren", indikator: "Menyimpulkan tren", level: "C4", type: "PGK", stimulus: "Data peminjaman buku: Bulan 1 (100), Bulan 2 (150), Bulan 3 (200), Bulan 4 (250).", text: "Pernyataan yang sesuai dengan pola data tersebut adalah:", options: { A: "Terdapat tren penurunan peminjaman.", B: "Terdapat tren kenaikan peminjaman secara konstan.", C: "Kenaikan peminjaman adalah 50 buku per bulan.", D: "Bulan ke-5 diprediksi peminjaman akan turun menjadi 50." }, answer: ["B", "C"], weight: 3 },
+            { id: 20, no: 20, tp: 2, materi: "Pola Teks", indikator: "Menganalisis frekuensi kata", level: "C4", type: "PGK", stimulus: "Data keluhan kotak saran: 'Wifi putus-putus', 'Internet lambat', 'Kantin ramai', 'Sinyal wifi hilang'.", text: "Pola masalah dominan yang bisa disimpulkan adalah:", options: { A: "Masalah kualitas makanan kantin", B: "Infrastruktur jaringan internet/wifi bermasalah", C: "Siswa membutuhkan kuota tambahan", D: "Konektivitas menjadi keluhan utama" }, answer: ["B", "D"], weight: 3 },
+            { id: 21, no: 21, tp: 2, materi: "Pengaruh Outlier", indikator: "Mengevaluasi efek pencilan", level: "C5", type: "BS", stimulus: "Dalam menghitung rata-rata nilai sekelas, satu siswa yang mendapat nilai ekstrim (misal 0) akan sangat menarik nilai rata-rata kelas ke bawah.", text: "Pernyataan tersebut BENAR atau SALAH?", answer: "BENAR", weight: 2 },
+            { id: 22, no: 22, tp: 2, materi: "Siklus Data", indikator: "Mengenali pola berulang", level: "C4", type: "BS", stimulus: "Pola penggunaan listrik yang selalu melonjak setiap hari Senin-Jumat jam 07.00-15.00 dan turun di akhir pekan disebut sebagai pola musiman/siklus mingguan sekolah.", text: "Pernyataan tersebut BENAR atau SALAH?", answer: "BENAR", weight: 2 },
+            { id: 23, no: 23, tp: 2, materi: "Istilah Tren", indikator: "Mendefinisikan tren", level: "C2", type: "IS", stimulus: "", text: "Kecenderungan arah pergerakan data dalam jangka waktu tertentu (naik, turun, atau datar) disebut...", altAnswers: ["tren", "trend"], weight: 2 },
+
+            // TP 3: Hubungan Pola dan Penyebab
+            { id: 24, no: 24, tp: 3, materi: "Sebab Akibat", indikator: "Menentukan penyebab dari pola", level: "C4", type: "PG", stimulus: "Data: Tingkat keterlambatan siswa meningkat drastis hanya pada saat musim hujan.", text: "Penyebab paling logis berdasarkan data tersebut adalah...", options: { A: "Siswa malas bangun pagi di musim hujan", B: "Akses jalan menuju sekolah terhambat genangan air/macet", C: "Jam sekolah dimajukan", D: "Satpam sekolah datang terlambat" }, answer: "B", weight: 2 },
+            { id: 25, no: 25, tp: 3, materi: "Akar Masalah", indikator: "Menganalisis anomali sistem", level: "C5", type: "PG", stimulus: "Website ujian CBT tiba-tiba down (mati) tepat pukul 08.00. Log menunjukkan ada 2000 login di detik yang sama padahal kapasitas server hanya 500.", text: "Penyebab utama dari masalah di atas adalah...", options: { A: "Serangan Hacker", B: "Overload/Kelebihan beban kapasitas server", C: "Virus pada komputer siswa", D: "Kesalahan soal ujian" }, answer: "B", weight: 2 },
+            { id: 26, no: 26, tp: 3, materi: "Korelasi vs Kausalitas", indikator: "Membedakan hubungan", level: "C5", type: "PG", stimulus: "Setiap penjualan es krim meningkat, penjualan kacamata hitam juga meningkat.", text: "Kesimpulan yang benar tentang pola ini adalah...", options: { A: "Makan es krim menyebabkan mata silau", B: "Memakai kacamata membuat haus", C: "Keduanya memiliki penyebab yang sama (cuaca panas terik)", D: "Penjual es krim bekerja sama dengan penjual kacamata" }, answer: "C", weight: 2 },
+            { id: 27, no: 27, tp: 3, materi: "Faktor Eksternal", indikator: "Menganalisis pengaruh luar", level: "C4", type: "PG", stimulus: "Penjualan makanan di kantin turun 50% di bulan Ramadhan berdasarkan data historis tahun lalu.", text: "Hal ini menunjukkan bahwa pola data dipengaruhi oleh...", options: { A: "Kesalahan manajemen kantin", B: "Kualitas makanan menurun", C: "Konteks sosial/keagamaan (Bulan Puasa)", D: "Siswa tidak punya uang saku" }, answer: "C", weight: 2 },
+            { id: 28, no: 28, tp: 3, materi: "Hipotesis", indikator: "Menyusun hipotesis logis", level: "C4", type: "PG", stimulus: "Nilai tugas coding siswa selalu rendah jika dikerjakan menggunakan HP dibanding PC.", text: "Hipotesis penyebabnya adalah...", options: { A: "Siswa lebih pintar jika memakai PC", B: "Mengetik kode (koding) di layar HP sangat sulit dan rentan typo", C: "HP tidak bisa tersambung internet", D: "Aplikasi koding di PC lebih mahal" }, answer: "B", weight: 2 },
+            { id: 29, no: 29, tp: 3, materi: "Logika Variabel Tersembunyi", indikator: "Mencari variabel lain", level: "C4", type: "PG", stimulus: "Banyak komputer lab rusak di area dekat jendela yang sering bocor.", text: "Penyebab kerusakan perangkat keras tersebut kemungkinan besar karena...", options: { A: "Siswa yang duduk di dekat jendela sering iseng", B: "Komputer terkena air/kelembaban tinggi", C: "Cahaya matahari merusak CPU", D: "Jaringan wifi di dekat jendela lemah" }, answer: "B", weight: 2 },
+            { id: 30, no: 30, tp: 3, materi: "Analisis Dampak", indikator: "Menghubungkan pola energi", level: "C4", type: "PGK", stimulus: "Tagihan listrik sekolah bulan lalu naik drastis. Data smart-meter menunjukkan AC lab menyala 24 jam non-stop.", text: "Penyebab dari masalah ini bisa berupa:", options: { A: "Sistem otomatisasi AC rusak", B: "Petugas lupa mematikan AC", C: "Suhu global meningkat", D: "Tarif listrik dasar turun" }, answer: ["A", "B"], weight: 3 },
+            { id: 31, no: 31, tp: 3, materi: "Investigasi Data", indikator: "Menentukan langkah investigasi", level: "C5", type: "PGK", stimulus: "Ada lonjakan jumlah buku perpustakaan yang hilang pada akhir semester.", text: "Langkah berbasis data untuk mencari penyebabnya adalah:", options: { A: "Mengecek log sistem perpustakaan peminjam yang belum mengembalikan", B: "Menghukum semua siswa", C: "Menganalisis rekaman CCTV pada tanggal kehilangan", D: "Langsung membeli buku baru tanpa peduli" }, answer: ["A", "C"], weight: 3 },
+            { id: 32, no: 32, tp: 3, materi: "Interpretasi Log", indikator: "Membaca log data", level: "C4", type: "BS", stimulus: "Data ping jaringan menunjukkan 'Request Timed Out' berulang kali. Hal ini mengindikasikan bahwa koneksi jaringan terputus ke server tujuan.", text: "Pernyataan tersebut BENAR atau SALAH?", answer: "BENAR", weight: 2 },
+            { id: 33, no: 33, tp: 3, materi: "Kesesuaian Kesimpulan", indikator: "Mengevaluasi kesimpulan", level: "C5", type: "BS", stimulus: "Data: 'Siswa yang membawa bekal cenderung memiliki nilai ujian tinggi'. Kesimpulan: 'Nasi bekal mengandung obat pintar'.", text: "Kesimpulan tersebut BENAR secara logika kausalitas.", answer: "SALAH", weight: 2 },
+            { id: 34, no: 34, tp: 3, materi: "Terminologi Investigasi", indikator: "Menyebutkan istilah analisis", level: "C3", type: "IS", stimulus: "", text: "Proses mencari tahu 'mengapa' suatu masalah terjadi dengan menelusuri data hingga ke dasarnya disebut analisis akar...", altAnswers: ["masalah", "penyebab"], weight: 2 },
+
+            // TP 4: Mengevaluasi Solusi
+            { id: 35, no: 35, tp: 4, materi: "Solusi Praktis", indikator: "Memilih solusi efisien", level: "C5", type: "PG", stimulus: "Masalah: Antrean presensi sidik jari di pagi hari sangat panjang.", text: "Solusi teknologi yang paling praktis untuk sekolah adalah...", options: { A: "Menggunakan presensi kartu RFID (tap) atau Barcode di berbagai titik", B: "Membeli 50 mesin sidik jari mahal", C: "Kembali mencatat di buku absensi kertas", D: "Menghukum siswa yang terlambat karena antre" }, answer: "A", weight: 2 },
+            { id: 36, no: 36, tp: 4, materi: "Green Computing", indikator: "Mengevaluasi solusi berkelanjutan", level: "C5", type: "PG", stimulus: "Sekolah memproduksi terlalu banyak sampah kertas saat ujian bulanan.", text: "Solusi paling berkelanjutan (sustainable) adalah...", options: { A: "Membakar kertas bekas ujian di halaman sekolah", B: "Menggunakan kertas daur ulang terus menerus", C: "Beralih sepenuhnya ke ujian berbasis komputer/CBT", D: "Mengecilkan ukuran tulisan soal menjadi ukuran 5" }, answer: "C", weight: 2 },
+            { id: 37, no: 37, tp: 4, materi: "Kriteria Kelayakan", indikator: "Menilai kelayakan ekonomis", level: "C4", type: "PG", stimulus: "Masalah: Wifi lab komputer lambat. Solusi: Menyewa satelit pribadi Starlink khusus untuk sekolah dengan biaya 50 juta/bulan.", text: "Evaluasi solusi tersebut untuk sebuah SMP:", options: { A: "Sangat baik karena canggih", B: "Tidak layak secara ekonomis (terlalu mahal) untuk sekolah menengah", C: "Praktis dan mudah diimplementasikan", D: "Ramah lingkungan" }, answer: "B", weight: 2 },
+            { id: 38, no: 38, tp: 4, materi: "Evaluasi UI/UX", indikator: "Menilai kesesuaian pengguna", level: "C5", type: "PG", stimulus: "Aplikasi perpustakaan dibuat dengan tulisan kecil, warna gelap, dan menu yang sangat rumit.", text: "Evaluasi dari sisi kemudahan pengguna (User Experience) adalah...", options: { A: "Kurang efektif karena menyulitkan pengguna usia SMP membaca", B: "Sangat baik karena terlihat seperti aplikasi hacker", C: "Aman dari pencurian", D: "Desain yang inovatif" }, answer: "A", weight: 2 },
+            { id: 39, no: 39, tp: 4, materi: "Analisis Algoritma", indikator: "Membandingkan dua metode", level: "C4", type: "PG", stimulus: "Metode A: Mengurutkan nilai manual. Metode B: Menggunakan fitur 'Sort' di Excel.", text: "Mengapa Metode B merupakan solusi yang lebih baik?", options: { A: "Karena Excel itu berbayar", B: "Metode B lebih meminimalkan human error dan lebih cepat", C: "Metode B menghasilkan nilai yang lebih tinggi", D: "Metode A memerlukan komputer" }, answer: "B", weight: 2 },
+            { id: 40, no: 40, tp: 4, materi: "Keamanan Solusi", indikator: "Mengidentifikasi risiko", level: "C4", type: "PG", stimulus: "Agar mudah, admin menghilangkan fitur password pada aplikasi CBT. Siapapun bisa masuk asal tahu NIS.", text: "Risiko fatal dari solusi ini adalah...", options: { A: "Siswa lupa password", B: "Ujian menjadi terlalu mudah dikerjakan", C: "Siswa bisa login dengan NIS temannya dan memanipulasi ujian", D: "Server menjadi lebih ringan" }, answer: "C", weight: 2 },
+            { id: 41, no: 41, tp: 4, materi: "Solusi Berbasis Data", indikator: "Menentukan tindakan dari data", level: "C5", type: "PG", stimulus: "Data suhu kelas di lantai atas mencapai 34°C di siang hari, mengganggu konsentrasi.", text: "Solusi jangka panjang terbaik adalah...", options: { A: "Memulangkan siswa setiap jam 12", B: "Memasang ventilasi silang (cross-ventilation) dan peneduh jendela", C: "Membagikan es batu di kelas", D: "Menutup semua jendela rapat-rapat" }, answer: "B", weight: 2 },
+            { id: 42, no: 42, tp: 4, materi: "Evaluasi Iteratif", indikator: "Memahami perbaikan berkelanjutan", level: "C4", type: "PGK", stimulus: "Aplikasi voting OSIS versi 1 lambat saat diakses banyak orang.", text: "Langkah evaluasi dan perbaikan untuk versi 2 adalah:", options: { A: "Menganalisis kode untuk optimasi database (query tuning)", B: "Meningkatkan spesifikasi server hosting", C: "Menyuruh siswa membawa kertas saja", D: "Mendesain ulang logo aplikasi" }, answer: ["A", "B"], weight: 3 },
+            { id: 43, no: 43, tp: 4, materi: "Feedback Sistem", indikator: "Menentukan cara evaluasi", level: "C3", type: "PGK", stimulus: "Sekolah baru saja meluncurkan aplikasi e-learning baru.", text: "Cara yang tepat untuk mengevaluasi apakah aplikasi tersebut disukai adalah:", options: { A: "Menebak sendiri perasaan siswa", B: "Menyebarkan kuesioner kepuasan pengguna (User Satisfaction)", C: "Menganalisis data durasi penggunaan (Time on Screen) di log", D: "Melihat warna aplikasinya" }, answer: ["B", "C"], weight: 3 },
+            { id: 44, no: 44, tp: 4, materi: "Kriteria Praktis", indikator: "Mengevaluasi kelayakan", level: "C4", type: "BS", stimulus: "Mengganti bel sekolah manual (lonceng) dengan bel otomatis berbasis mikrokontroler (Arduino) merupakan solusi praktis karena membebaskan tugas petugas untuk fokus pada keamanan sekolah.", text: "Pernyataan tersebut BENAR atau SALAH?", answer: "BENAR", weight: 2 },
+            { id: 45, no: 45, tp: 4, materi: "Desain Solusi", indikator: "Menyebutkan istilah UI/UX", level: "C2", type: "IS", stimulus: "", text: "Tampilan antarmuka visual aplikasi tempat pengguna berinteraksi (seperti tombol, warna, tata letak) sering disingkat dengan UI, kepanjangannya adalah User...", altAnswers: ["interface"], weight: 2 }
+        ];
+
+        const { useState, useEffect, useMemo, useRef } = React;
+
+        const shuffleArray = (array) => {
+            const newArr = [...array];
+            for (let i = newArr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+            }
+            return newArr;
+        };
+
+        const normalizeText = (text) => text.toString().toLowerCase().replace(/\s+/g, '').trim();
+
+        const arraysEqual = (a, b) => {
+            if (a === b) return true;
+            if (a == null || b == null) return false;
+            if (a.length !== b.length) return false;
+            const sortedA = [...a].sort();
+            const sortedB = [...b].sort();
+            for (let i = 0; i < sortedA.length; ++i) {
+                if (sortedA[i] !== sortedB[i]) return false;
+            }
+            return true;
+        };
+
+        const mockResults = [
+            { id: '1', user: { name: 'Andi Saputra', nis: '1001', class: '8A' }, score: 85, passed: true, stats: { correct: 38, wrong: 7, empty: 0 }, date: new Date().toLocaleDateString('id-ID') },
+            
+        ];
+
+        const Button = ({ children, onClick, variant = 'primary', className = '', type = 'button', disabled = false }) => {
+            const variants = {
+                primary: "bg-blue-600 text-white hover:bg-blue-700",
+                secondary: "bg-gray-200 text-gray-800 hover:bg-gray-300",
+                danger: "bg-red-500 text-white hover:bg-red-600",
+                success: "bg-emerald-600 text-white hover:bg-emerald-700",
+                outline: "border-2 border-blue-600 text-blue-600 hover:bg-blue-50"
+            };
+            return (
+                <button type={type} onClick={onClick} disabled={disabled} className={`px-4 py-2 rounded-lg font-medium transition-colors duration-200 shadow-sm disabled:opacity-50 flex items-center justify-center gap-2 ${variants[variant]} ${className}`}>
+                    {children}
+                </button>
+            );
+        };
+
+        const Card = ({ children, className = '' }) => (
+            <div className={`bg-white rounded-xl shadow-md p-6 ${className}`}>
+                {children}
+            </div>
+        );
+
+        const ChartView = ({ type, data, options, height = 'h-64' }) => {
+            const canvasRef = useRef(null);
+            const chartInstance = useRef(null);
+
+            useEffect(() => {
+                if (canvasRef.current) {
+                    if (chartInstance.current) chartInstance.current.destroy();
+                    chartInstance.current = new Chart(canvasRef.current, { type, data, options: { responsive: true, maintainAspectRatio: false, ...options } });
+                }
+                return () => chartInstance.current?.destroy();
+            }, [data, type, options]);
+
+            return <div className={`relative w-full ${height}`}><canvas ref={canvasRef}></canvas></div>;
+        };
+
+        const StudentLogin = ({ onLogin, onAdminClick }) => {
+            const [name, setName] = useState('');
+            const [nis, setNis] = useState('');
+            const [cls, setCls] = useState('7A');
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                if (name.trim() && nis.trim()) {
+                    onLogin({ name: name.trim(), nis: nis.trim(), class: cls });
+                }
+            };
+
+            return (
+                <div className="flex items-center justify-center min-h-[80vh] p-4">
+                    <Card className="w-full max-w-md border-t-4 border-blue-600">
+                        <div className="text-center mb-6">
+                            <div className="bg-blue-50 w-20 h-24 rounded-2xl mx-auto mb-3 flex items-center justify-center p-2 shadow-inner border border-blue-100">
+                                <EspenturaLogo className="w-16 h-20" />
+                            </div>
+                            <h2 className="text-2xl font-bold text-gray-800 mb-1">Login Peserta Ujian</h2>
+                            <p className="text-gray-600 font-semibold text-sm">SMP NEGERI 1 JEPARA (ESPENTURA)</p>
+                            <p className="text-gray-400 text-xs mt-1">Asesmen KKA Tahun Ajaran 2025/2026</p>
+                        </div>
+
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-1">Nama Lengkap Siswa</label>
+                                <input type="text" required value={name} onChange={e => setName(e.target.value)} placeholder="Masukkan nama lengkap" className="w-full px-4 py-2.5 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-1">Nomor Induk Siswa (NIS)</label>
+                                <input type="text" required value={nis} onChange={e => setNis(e.target.value)} placeholder="Contoh: 1001" className="w-full px-4 py-2.5 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-1">Kelas</label>
+                                <select value={cls} onChange={e => setCls(e.target.value)} className="w-full px-4 py-2.5 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white">
+                                    <option value="7A">Kelas 7A</option>
+                                    
+                                </select>
+                            </div>
+                            <Button type="submit" variant="primary" className="w-full py-3 font-semibold text-base">
+                                <i className="ph-bold ph-sign-in text-xl"></i> Masuk Ruang Ujian
+                            </Button>
+                        </form>
+
+                        <div className="mt-6 pt-4 border-t text-center">
+                            <button onClick={onAdminClick} className="text-sm text-gray-500 hover:text-blue-600 font-medium flex items-center justify-center mx-auto gap-1">
+                                <i className="ph-bold ph-shield-check text-base"></i> Portal Guru / Admin CBT
+                            </button>
+                        </div>
+                    </Card>
+                </div>
+            );
+        };
+
+        const StudentDashboard = ({ user, settings, onStart, onLogout }) => {
+            return (
+                <div className="p-6 max-w-4xl mx-auto space-y-6">
+                    <Card className="bg-gradient-to-r from-blue-700 to-indigo-800 text-white">
+                        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+                            <div className="flex items-center gap-4">
+                                <div className="p-3 bg-white/10 rounded-2xl backdrop-blur-sm">
+                                    <EspenturaLogo className="w-14 h-16" />
+                                </div>
+                                <div>
+                                    <h2 className="text-2xl font-bold">Selamat Datang, {user.name}!</h2>
+                                    <p className="text-blue-100 text-sm">NIS: {user.nis} | Kelas: {user.class} | SMPN 1 Jepara</p>
+                                </div>
+                            </div>
+                            <Button onClick={onLogout} variant="secondary" className="bg-white/20 hover:bg-white/30 text-white border-none">
+                                <i className="ph-bold ph-sign-out"></i> Keluar
+                            </Button>
+                        </div>
+                    </Card>
+
+                    <Card className="border-l-4 border-blue-600">
+                        <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                            <i className="ph-bold ph-clipboard-text text-blue-600"></i> Informasi Asesmen
+                        </h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mb-6">
+                            <div className="p-3 bg-gray-50 rounded-lg"><span className="text-gray-500">Mata Pelajaran:</span> <p className="font-semibold text-gray-800">Koding dan Kecerdasan Artifisial (KKA)</p></div>
+                            <div className="p-3 bg-gray-50 rounded-lg"><span className="text-gray-500">Nama Ujian:</span> <p className="font-semibold text-gray-800">{settings.name}</p></div>
+                            <div className="p-3 bg-gray-50 rounded-lg"><span className="text-gray-500">Durasi Pengerjaan:</span> <p className="font-semibold text-gray-800">{settings.duration} Menit</p></div>
+                            <div className="p-3 bg-gray-50 rounded-lg"><span className="text-gray-500">Batas Ketuntasan (KKTP):</span> <p className="font-semibold text-blue-600 font-bold">{settings.kktp}</p></div>
+                        </div>
+
+                        <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 text-amber-800 mb-6 text-sm">
+                            <h4 className="font-bold mb-2 flex items-center gap-1"><i className="ph-bold ph-warning-circle"></i> Petunjuk Penting:</h4>
+                            <ul className="list-disc list-inside space-y-1 text-xs md:text-sm">
+                                <li>Bacalah setiap soal dengan teliti sebelum memilih jawaban.</li>
+                                <li>Untuk tipe **Pilihan Ganda Kompleks**, jawaban yang benar bisa lebih dari satu.</li>
+                                <li>Ujian menggunakan timer otomatis, pastikan selesai sebelum waktu habis.</li>
+                                <li>Jangan menutup atau merefresh browser saat ujian berlangsung.</li>
+                            </ul>
+                        </div>
+
+                        <Button onClick={() => onStart({ startTime: Date.now() })} variant="success" className="w-full py-4 text-lg font-bold">
+                            <i className="ph-bold ph-play-circle text-2xl"></i> Mulai Kerjakan Ujian Sekarang
+                        </Button>
+                    </Card>
+                </div>
+            );
+        };
+
+        const ExamEngine = ({ user, settings, questions, session, onFinish }) => {
+            const preparedQuestions = useMemo(() => {
+                let qs = [...questions];
+                if (settings.randomizeQuestions) {
+                    qs = shuffleArray(qs);
+                }
+                return qs;
+            }, [questions, settings.randomizeQuestions]);
+
+            const [currentIndex, setCurrentIndex] = useState(0);
+            const [answers, setAnswers] = useState({});
+            const [timeLeft, setTimeLeft] = useState(settings.duration * 60);
+            const [showConfirm, setShowConfirm] = useState(false);
+
+            useEffect(() => {
+                const timer = setInterval(() => {
+                    setTimeLeft(prev => {
+                        if (prev <= 1) {
+                            clearInterval(timer);
+                            handleFinishExam();
+                            return 0;
+                        }
+                        return prev - 1;
+                    });
+                }, 1000);
+                return () => clearInterval(timer);
+            }, []);
+
+            const currentQ = preparedQuestions[currentIndex];
+
+            const handleSingleChoice = (val) => {
+                setAnswers(prev => ({ ...prev, [currentQ.id]: val }));
+            };
+
+            const handleMultipleChoice = (key) => {
+                const currentAns = answers[currentQ.id] || [];
+                let nextAns;
+                if (currentAns.includes(key)) {
+                    nextAns = currentAns.filter(k => k !== key);
+                } else {
+                    nextAns = [...currentAns, key];
+                }
+                setAnswers(prev => ({ ...prev, [currentQ.id]: nextAns }));
+            };
+
+            const handleTextChoice = (val) => {
+                setAnswers(prev => ({ ...prev, [currentQ.id]: val }));
+            };
+
+            const formatTime = (secs) => {
+                const m = Math.floor(secs / 60);
+                const s = secs % 60;
+                return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            };
+
+            const handleFinishExam = () => {
+                let totalMaxWeight = 0;
+                let earnedWeight = 0;
+                let correctCount = 0;
+                let wrongCount = 0;
+                let emptyCount = 0;
+
+                questions.forEach(q => {
+                    totalMaxWeight += q.weight;
+                    const userAns = answers[q.id];
+
+                    if (userAns === undefined || userAns === '' || (Array.isArray(userAns) && userAns.length === 0)) {
+                        emptyCount++;
+                    } else {
+                        if (q.type === 'PG' || q.type === 'BS') {
+                            if (userAns === q.answer) {
+                                earnedWeight += q.weight;
+                                correctCount++;
+                            } else {
+                                wrongCount++;
+                            }
+                        } else if (q.type === 'PGK') {
+                            if (arraysEqual(userAns, q.answer)) {
+                                earnedWeight += q.weight;
+                                correctCount++;
+                            } else {
+                                wrongCount++;
+                            }
+                        } else if (q.type === 'IS') {
+                            const normAns = normalizeText(userAns);
+                            const matched = q.altAnswers.some(alt => normalizeText(alt) === normAns);
+                            if (matched) {
+                                earnedWeight += q.weight;
+                                correctCount++;
+                            } else {
+                                wrongCount++;
+                            }
+                        }
+                    }
+                });
+
+                const finalScore = Math.round((earnedWeight / totalMaxWeight) * 100);
+
+                const resultObject = {
+                    id: Math.random().toString(36).substr(2, 9),
+                    user,
+                    score: finalScore,
+                    passed: finalScore >= settings.kktp,
+                    kktp: settings.kktp,
+                    stats: { correct: correctCount, wrong: wrongCount, empty: emptyCount },
+                    date: new Date().toLocaleDateString('id-ID'),
+                    userAnswers: answers
+                };
+
+                onFinish(resultObject);
+            };
+
+            return (
+                <div className="p-4 md:p-6 max-w-6xl mx-auto">
+                    {/* Header bar */}
+                    <div className="bg-white rounded-xl shadow-md p-4 mb-6 flex flex-wrap justify-between items-center gap-4 border-t-4 border-blue-600 no-print">
+                        <div>
+                            <span className="text-xs text-gray-500 block">Peserta Ujian</span>
+                            <span className="font-bold text-gray-800">{user.name} ({user.class})</span>
+                        </div>
+                        <div className="flex items-center gap-2 bg-red-50 border border-red-200 text-red-700 px-4 py-2 rounded-lg font-bold text-lg">
+                            <i className="ph-bold ph-timer text-2xl"></i> {formatTime(timeLeft)}
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                        {/* Question Content */}
+                        <div className="lg:col-span-3 space-y-6">
+                            <Card className="min-h-[400px]">
+                                <div className="flex justify-between items-center border-b pb-3 mb-4">
+                                    <span className="font-bold text-blue-800 text-lg">Soal Nomor {currentIndex + 1} dari {preparedQuestions.length}</span>
+                                    <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-bold uppercase">{currentQ.type}</span>
+                                </div>
+
+                                {currentQ.stimulus && (
+                                    <div className="mb-4 p-3 bg-slate-50 border-l-4 border-blue-500 rounded text-sm text-gray-700 font-medium whitespace-pre-line">
+                                        {currentQ.stimulus}
+                                    </div>
+                                )}
+
+                                <div className="text-base text-gray-800 font-semibold mb-6">
+                                    {currentQ.text}
+                                </div>
+
+                                {/* Options */}
+                                <div className="space-y-3">
+                                    {currentQ.type === 'PG' && Object.entries(currentQ.options).map(([key, val]) => (
+                                        <label key={key} className={`flex items-center gap-3 p-3.5 rounded-lg border-2 cursor-pointer transition ${answers[currentQ.id] === key ? 'border-blue-600 bg-blue-50 text-blue-900 font-medium' : 'border-gray-200 hover:bg-gray-50'}`}>
+                                            <input type="radio" name={`q-${currentQ.id}`} checked={answers[currentQ.id] === key} onChange={() => handleSingleChoice(key)} className="w-5 h-5 text-blue-600" />
+                                            <span><strong className="mr-2">{key}.</strong>{val}</span>
+                                        </label>
+                                    ))}
+
+                                    {currentQ.type === 'PGK' && Object.entries(currentQ.options).map(([key, val]) => {
+                                        const isChecked = (answers[currentQ.id] || []).includes(key);
+                                        return (
+                                            <label key={key} className={`flex items-center gap-3 p-3.5 rounded-lg border-2 cursor-pointer transition ${isChecked ? 'border-blue-600 bg-blue-50 text-blue-900 font-medium' : 'border-gray-200 hover:bg-gray-50'}`}>
+                                                <input type="checkbox" checked={isChecked} onChange={() => handleMultipleChoice(key)} className="w-5 h-5 text-blue-600 rounded" />
+                                                <span><strong className="mr-2">{key}.</strong>{val}</span>
+                                            </label>
+                                        );
+                                    })}
+
+                                    {currentQ.type === 'BS' && (
+                                        <div className="grid grid-cols-2 gap-4">
+                                            {['BENAR', 'SALAH'].map(opt => (
+                                                <button key={opt} type="button" onClick={() => handleSingleChoice(opt)} className={`py-4 rounded-xl border-2 font-bold transition text-lg ${answers[currentQ.id] === opt ? (opt === 'BENAR' ? 'bg-emerald-50 border-emerald-600 text-emerald-700' : 'bg-red-50 border-red-600 text-red-700') : 'border-gray-200 hover:bg-gray-50 text-gray-700'}`}>
+                                                    {opt}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    {currentQ.type === 'IS' && (
+                                        <div className="pt-2">
+                                            <input type="text" value={answers[currentQ.id] || ''} onChange={e => handleTextChoice(e.target.value)} placeholder="Tuliskan jawaban singkat Anda di sini..." className="w-full p-4 border-2 rounded-xl focus:border-blue-600 focus:outline-none font-medium text-lg" />
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Bottom navigation */}
+                                <div className="flex justify-between items-center mt-8 pt-4 border-t">
+                                    <Button onClick={() => setCurrentIndex(prev => Math.max(0, prev - 1))} disabled={currentIndex === 0} variant="secondary">
+                                        <i className="ph-bold ph-arrow-left"></i> Sebelumnya
+                                    </Button>
+
+                                    {currentIndex === preparedQuestions.length - 1 ? (
+                                        <Button onClick={() => setShowConfirm(true)} variant="success">
+                                            Selesai & Selesai <i className="ph-bold ph-check-circle"></i>
+                                        </Button>
+                                    ) : (
+                                        <Button onClick={() => setCurrentIndex(prev => Math.min(preparedQuestions.length - 1, prev + 1))} variant="primary">
+                                            Berikutnya <i className="ph-bold ph-arrow-right"></i>
+                                        </Button>
+                                    )}
+                                </div>
+                            </Card>
+                        </div>
+
+                        {/* Question Grid Sidebar */}
+                        <div className="space-y-4">
+                            <Card>
+                                <h4 className="font-bold text-gray-800 mb-3 flex items-center justify-between">
+                                    <span>Navigasi Soal</span>
+                                    <span className="text-xs bg-gray-100 px-2 py-1 rounded text-gray-600">{Object.keys(answers).length}/{preparedQuestions.length} Terjawab</span>
+                                </h4>
+                                <div className="grid grid-cols-5 gap-2">
+                                    {preparedQuestions.map((q, idx) => {
+                                        const isAnswered = answers[q.id] !== undefined && answers[q.id] !== '' && (!Array.isArray(answers[q.id]) || answers[q.id].length > 0);
+                                        const isCurrent = idx === currentIndex;
+                                        return (
+                                            <button key={q.id} onClick={() => setCurrentIndex(idx)} className={`w-full h-10 rounded-lg text-xs font-bold flex items-center justify-center transition border ${isCurrent ? 'ring-2 ring-blue-600 ring-offset-2' : ''} ${isAnswered ? 'bg-blue-600 text-white border-blue-600' : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-gray-300'}`}>
+                                                {idx + 1}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                                <div className="mt-6">
+                                    <Button onClick={() => setShowConfirm(true)} variant="danger" className="w-full">
+                                        Kirim Hasil Ujian
+                                    </Button>
+                                </div>
+                            </Card>
+                        </div>
+                    </div>
+
+                    {/* Confirmation Modal */}
+                    {showConfirm && (
+                        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+                            <div className="bg-white rounded-2xl max-w-md w-full p-6 text-center space-y-4 shadow-2xl">
+                                <div className="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto text-3xl">
+                                    <i className="ph-bold ph-warning"></i>
+                                </div>
+                                <h3 className="text-xl font-bold text-gray-800">Konfirmasi Selesai Ujian</h3>
+                                <p className="text-sm text-gray-600">Apakah Anda yakin ingin menyelesaikan ujian ini? Pastikan seluruh soal telah Anda periksa dengan teliti.</p>
+                                <div className="flex gap-3 pt-2">
+                                    <Button onClick={() => setShowConfirm(false)} variant="secondary" className="flex-1">Batal</Button>
+                                    <Button onClick={handleFinishExam} variant="success" className="flex-1">Ya, Selesai</Button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const StudentResult = ({ result, settings, onLogout, onPrint }) => {
+            return (
+                <div className="p-6 max-w-3xl mx-auto space-y-6">
+                    <Card className="text-center p-8 space-y-4 border-t-8 border-blue-700">
+                        <div className="w-20 h-24 mx-auto mb-2">
+                            <EspenturaLogo className="w-20 h-24" />
+                        </div>
+                        <h2 className="text-2xl font-extrabold text-gray-800">Hasil Asesmen KKA</h2>
+                        <p className="text-sm text-gray-500">{settings.school} — {settings.name}</p>
+
+                        <div className="py-6 my-4 bg-slate-50 rounded-2xl border">
+                            <div className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-1">Nilai Akhir Anda</div>
+                            <div className="text-6xl font-black text-blue-700 mb-2">{result.score}</div>
+                            <div className={`inline-block px-4 py-1.5 rounded-full text-sm font-bold ${result.passed ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`}>
+                                {result.passed ? 'TUNTAS (Memenuhi KKTP)' : 'BELUM TUNTAS'}
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-3 gap-4 text-center">
+                            <div className="p-3 bg-emerald-50 rounded-lg"><span className="text-emerald-700 font-bold block text-xl">{result.stats.correct}</span><span className="text-xs text-emerald-800">Benar</span></div>
+                            <div className="p-3 bg-red-50 rounded-lg"><span className="text-red-700 font-bold block text-xl">{result.stats.wrong}</span><span className="text-xs text-red-800">Salah</span></div>
+                            <div className="p-3 bg-gray-100 rounded-lg"><span className="text-gray-700 font-bold block text-xl">{result.stats.empty}</span><span className="text-xs text-gray-600">Kosong</span></div>
+                        </div>
+
+                        <div className="flex flex-wrap gap-3 justify-center pt-4 border-t">
+                            <Button onClick={onPrint} variant="outline"><i className="ph-bold ph-printer"></i> Cetak Hasil</Button>
+                            <Button onClick={onLogout} variant="primary"><i className="ph-bold ph-check"></i> Selesai & Keluar</Button>
+                        </div>
+                    </Card>
+                </div>
+            );
+        };
+
+        const AdminLogin = ({ onLogin, onBack }) => {
+            const [pass, setPass] = useState('');
+            const [err, setErr] = useState(false);
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                if (pass === 'espentura' || pass === 'espenturajuara') {
+                    onLogin();
+                } else {
+                    setErr(true);
+                }
+            };
+
+            return (
+                <div className="flex items-center justify-center min-h-[80vh] p-4">
+                    <Card className="w-full max-w-sm border-t-4 border-gray-800">
+                        <div className="text-center mb-6">
+                            <i className="ph-bold ph-shield-check text-4xl text-gray-800"></i>
+                            <h2 className="text-2xl font-bold text-gray-800 mt-2">Login Portal Guru</h2>
+                            <p className="text-gray-500 text-xs">Akses Modul Administrator & Cetak</p>
+                        </div>
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <div>
+                                <label className="block text-sm font-semibold text-gray-700 mb-1">Password Administrator</label>
+                                <input type="password" required value={pass} onChange={e => { setPass(e.target.value); setErr(false); }} placeholder="Default:  " className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-gray-800 focus:outline-none" />
+                                {err && <p className="text-red-500 text-xs mt-1">Password salah. Ulangi</p>}
+                            </div>
+                            <Button type="submit" variant="primary" className="w-full bg-gray-800 hover:bg-gray-900">
+                                Masuk Admin
+                            </Button>
+                            <Button onClick={onBack} variant="secondary" className="w-full">
+                                Kembali ke Siswa
+                            </Button>
+                        </form>
+                    </Card>
+                </div>
+            );
+        };
+
+        const AdminDashboard = ({ db, setDb, onLogout, onPrint }) => {
+            const [activeTab, setActiveTab] = useState('overview');
+
+            const passRate = useMemo(() => {
+                if (!db.results.length) return 0;
+                const passed = db.results.filter(r => r.passed).length;
+                return Math.round((passed / db.results.length) * 100);
+            }, [db.results]);
+
+            const chartData = useMemo(() => {
+                const passed = db.results.filter(r => r.passed).length;
+                const failed = db.results.length - passed;
+                return {
+                    labels: ['Tuntas', 'Belum Tuntas'],
+                    datasets: [{ data: [passed, failed], backgroundColor: ['#10b981', '#ef4444'] }]
+                };
+            }, [db.results]);
+
+            return (
+                <div className="p-6 space-y-6">
+                    <div className="flex flex-wrap justify-between items-center gap-4 bg-white p-4 rounded-xl shadow-md border-b-4 border-blue-800">
+                        <div>
+                            <h2 className="text-2xl font-extrabold text-gray-800">Dashboard Administrator CBT</h2>
+                            <p className="text-sm text-gray-500">SMP Negeri 1 Jepara — KKA 2025/2026</p>
+                        </div>
+                        <div className="flex gap-2">
+                            <Button onClick={onLogout} variant="secondary"><i className="ph-bold ph-sign-out"></i> Keluar</Button>
+                        </div>
+                    </div>
+
+                    {/* Navigation Tabs */}
+                    <div className="flex border-b border-gray-200 bg-white rounded-lg p-1 shadow-sm overflow-x-auto">
+                        {[
+                            { id: 'overview', label: 'Ringkasan & Analisis', icon: 'ph-chart-pie' },
+                            { id: 'questions', label: 'Bank Soal (45)', icon: 'ph-list-checks' },
+                            { id: 'results', label: 'Hasil Peserta', icon: 'ph-users' },
+                            { id: 'prints', label: 'Cetak Dokumen Lengkap', icon: 'ph-printer' }
+                        ].map(tab => (
+                            <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex items-center gap-2 px-5 py-3 font-semibold text-sm rounded-md transition whitespace-nowrap ${activeTab === tab.id ? 'bg-blue-800 text-white' : 'text-gray-600 hover:text-blue-800'}`}>
+                                <i className={`ph-bold ${tab.icon} text-lg`}></i> {tab.label}
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* Tab 1: Overview */}
+                    {activeTab === 'overview' && (
+                        <div className="space-y-6">
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                <Card className="border-l-4 border-blue-600"><span className="text-xs text-gray-500">Total Peserta Ujian</span><div className="text-3xl font-bold mt-1">{db.results.length} Siswa</div></Card>
+                                <Card className="border-l-4 border-emerald-500"><span className="text-xs text-gray-500">Tingkat Ketuntasan</span><div className="text-3xl font-bold text-emerald-600 mt-1">{passRate}%</div></Card>
+                                <Card className="border-l-4 border-amber-500"><span className="text-xs text-gray-500">Nilai KKTP</span><div className="text-3xl font-bold text-amber-600 mt-1">{db.settings.kktp}</div></Card>
+                                <Card className="border-l-4 border-indigo-600"><span className="text-xs text-gray-500">Total Soal</span><div className="text-3xl font-bold text-indigo-600 mt-1">{db.questions.length}</div></Card>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <Card>
+                                    <h3 className="font-bold mb-4">Proporsi Ketuntasan Siswa</h3>
+                                    <ChartView type="doughnut" data={chartData} />
+                                </Card>
+                                <Card>
+                                    <h3 className="font-bold mb-4">Sebaran Capaian Per Tujuan Pembelajaran</h3>
+                                    <div className="space-y-4">
+                                        {[1, 2, 3, 4].map(tp => (
+                                            <div key={tp} className="space-y-1">
+                                                <div className="flex justify-between text-sm font-semibold">
+                                                    <span>TP {tp}: {tp === 1 ? 'Konsep & Pengumpulan' : tp === 2 ? 'Identifikasi Pola' : tp === 3 ? 'Hubungan & Penyebab' : 'Evaluasi Solusi'}</span>
+                                                    <span className="text-blue-600">82% Ketuntasan</span>
+                                                </div>
+                                                <div className="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                                    <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '82%' }}></div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </Card>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Tab 2: Bank Soal */}
+                    {activeTab === 'questions' && (
+                        <Card>
+                            <div className="flex justify-between items-center mb-4">
+                                <h3 className="font-bold text-lg">Daftar Soal Asesmen (45 Soal)</h3>
+                                <Button onClick={() => onPrint('kisi-kisi')} variant="outline"><i className="ph-bold ph-printer"></i> Cetak Kisi-Kisi</Button>
+                            </div>
+                            <div className="overflow-x-auto">
+                                <table className="w-full text-sm text-left">
+                                    <thead className="bg-gray-100 text-gray-700 uppercase text-xs">
+                                        <tr>
+                                            <th className="p-3">No</th>
+                                            <th className="p-3">TP</th>
+                                            <th className="p-3">Tipe</th>
+                                            <th className="p-3">Materi & Indikator</th>
+                                            <th className="p-3">Pertanyaan</th>
+                                            <th className="p-3">Level</th>
+                                            <th className="p-3">Bobot</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y">
+                                        {db.questions.map(q => (
+                                            <tr key={q.id} className="hover:bg-gray-50">
+                                                <td className="p-3 font-bold">{q.no}</td>
+                                                <td className="p-3"><span className="px-2 py-0.5 bg-blue-100 text-blue-800 rounded font-semibold text-xs">TP {q.tp}</span></td>
+                                                <td className="p-3"><span className="px-2 py-0.5 bg-gray-100 text-gray-800 rounded text-xs font-bold">{q.type}</span></td>
+                                                <td className="p-3"><strong>{q.materi}</strong><br/><span className="text-xs text-gray-500">{q.indikator}</span></td>
+                                                <td className="p-3 max-w-xs truncate">{q.text}</td>
+                                                <td className="p-3">{q.level}</td>
+                                                <td className="p-3 font-semibold">{q.weight}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </Card>
+                    )}
+
+                    {/* Tab 3: Results */}
+                    {activeTab === 'results' && (
+                        <Card>
+                            <h3 className="font-bold text-lg mb-4">Hasil Ujian Siswa</h3>
+                            <div className="overflow-x-auto">
+                                <table className="w-full text-sm text-left">
+                                    <thead className="bg-gray-100 text-gray-700 uppercase text-xs">
+                                        <tr>
+                                            <th className="p-3">Nama</th>
+                                            <th className="p-3">NIS</th>
+                                            <th className="p-3">Kelas</th>
+                                            <th className="p-3">Nilai</th>
+                                            <th className="p-3">Status</th>
+                                            <th className="p-3">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y">
+                                        {db.results.map(r => (
+                                            <tr key={r.id} className="hover:bg-gray-50">
+                                                <td className="p-3 font-semibold">{r.user.name}</td>
+                                                <td className="p-3">{r.user.nis}</td>
+                                                <td className="p-3">{r.user.class}</td>
+                                                <td className="p-3 font-bold text-lg">{r.score}</td>
+                                                <td className="p-3">
+                                                    <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${r.passed ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`}>
+                                                        {r.passed ? 'TUNTAS' : 'BELUM TUNTAS'}
+                                                    </span>
+                                                </td>
+                                                <td className="p-3">
+                                                    <Button onClick={() => onPrint('student-result', r)} variant="outline" className="py-1 px-3 text-xs">
+                                                        <i className="ph-bold ph-printer"></i> Cetak Hasil
+                                                    </Button>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </Card>
+                    )}
+
+                    {/* Tab 4: Print Center */}
+                    {activeTab === 'prints' && (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {[
+                                { mode: 'kisi-kisi', title: 'Cetak Kisi-Kisi Ujian', desc: 'Matriks lengkap TP, Indikator, Level Kognitif, dan Bobot Soal', icon: 'ph-table' },
+                                { mode: 'soal', title: 'Cetak Naskah Soal', desc: 'Naskah soal cetak lengkap dengan Kop Surat SMP Negeri 1 Jepara', icon: 'ph-file-text' },
+                                { mode: 'kunci', title: 'Cetak Kunci Jawaban', desc: 'Daftar Kunci Jawaban dan alternatif jawaban singkat', icon: 'ph-key' },
+                                { mode: 'norma', title: 'Cetak Norma & Pedoman Penilaian', desc: 'Rubrik penilaian, bobot soal, dan rumus perhitungan nilai', icon: 'ph-scales' }
+                            ].map(p => (
+                                <Card key={p.mode} className="flex flex-col justify-between p-6">
+                                    <div>
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <div className="p-3 bg-blue-50 text-blue-800 rounded-xl">
+                                                <i className={`ph-bold ${p.icon} text-2xl`}></i>
+                                            </div>
+                                            <h4 className="font-bold text-lg text-gray-800">{p.title}</h4>
+                                        </div>
+                                        <p className="text-gray-600 text-sm mb-6">{p.desc}</p>
+                                    </div>
+                                    <Button onClick={() => onPrint(p.mode)} variant="primary" className="w-full">
+                                        <i className="ph-bold ph-printer"></i> Cetak Dokumen Ini
+                                    </Button>
+                                </Card>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const PrintLayout = ({ mode, data, db, onClose }) => {
+            const Header = ({ title }) => (
+                <div className="mb-6">
+                    <div className="flex items-center justify-between pb-3">
+                        <div className="w-20 shrink-0">
+                            <EspenturaLogo className="w-16 h-20 mx-auto" />
+                        </div>
+                        <div className="flex-grow text-center px-4">
+                            <h3 className="text-sm font-bold uppercase tracking-wider text-gray-800">Pemerintah Kabupaten Jepara</h3>
+                            <h3 className="text-sm font-bold uppercase tracking-wider text-gray-800">Dinas Pendidikan Pemuda dan Olahraga</h3>
+                            <h1 className="text-xl font-extrabold uppercase text-black tracking-wide my-0.5">SMP NEGERI 1 JEPARA</h1>
+                            <p className="text-xs text-gray-600">Jl. Sersan Sumirat No. 3, Jobokuto, Kec. Jepara, Kab. Jepara, Jawa Tengah 59416</p>
+                            <p className="text-xs text-gray-600">Website: www.smpnegeri1jepara.sch.id | E-mail: smpnone@yahoo.com</p>
+                        </div>
+                        <div className="w-20 shrink-0"></div>
+                    </div>
+                    {/* Double Kop Surat Line */}
+                    <div className="border-b-4 border-black mb-1"></div>
+                    <div className="border-b-2 border-black mb-6"></div>
+
+                    <div className="text-center mt-4 mb-6">
+                        <h2 className="text-lg font-bold uppercase text-gray-900 underline decoration-2 underline-offset-4">{title}</h2>
+                        <p className="text-sm font-semibold text-gray-700 mt-1">Mata Pelajaran: Koding dan Kecerdasan Artifisial (KKA)</p>
+                        <p className="text-xs text-gray-600">{db.settings.name} — {db.settings.school}</p>
+                    </div>
+                </div>
+            );
+
+            let content = null;
+            if (mode === 'kisi-kisi') {
+                content = (
+                    <div>
+                        <Header title="Kisi-Kisi Penilaian" />
+                        <table className="text-sm w-full border-collapse">
+                            <thead>
+                                <tr className="bg-gray-100">
+                                    <th className="border p-2">No</th>
+                                    <th className="border p-2">Tujuan Pembelajaran</th>
+                                    <th className="border p-2">Materi</th>
+                                    <th className="border p-2">Indikator</th>
+                                    <th className="border p-2">Level</th>
+                                    <th className="border p-2">Bentuk</th>
+                                    <th className="border p-2">Bobot</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {db.questions.map(q => (
+                                    <tr key={q.id}>
+                                        <td className="border p-2 text-center">{q.no}</td>
+                                        <td className="border p-2">TP {q.tp}</td>
+                                        <td className="border p-2">{q.materi}</td>
+                                        <td className="border p-2">{q.indikator}</td>
+                                        <td className="border p-2 text-center">{q.level}</td>
+                                        <td className="border p-2 text-center">{q.type}</td>
+                                        <td className="border p-2 text-center">{q.weight}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                );
+            } else if (mode === 'kunci') {
+                content = (
+                    <div>
+                        <Header title="Kunci Jawaban" />
+                        <table className="text-sm w-full border-collapse">
+                            <thead>
+                                <tr className="bg-gray-100">
+                                    <th className="border p-2">No</th>
+                                    <th className="border p-2">Bentuk</th>
+                                    <th className="border p-2">Kunci Jawaban</th>
+                                    <th className="border p-2">Level</th>
+                                    <th className="border p-2">Bobot</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {db.questions.map(q => (
+                                    <tr key={q.id}>
+                                        <td className="border p-2 text-center">{q.no}</td>
+                                        <td className="border p-2 text-center">{q.type}</td>
+                                        <td className="border p-2 font-bold">{Array.isArray(q.answer) ? q.answer.join(', ') : (q.type === 'IS' ? q.altAnswers.join(' / ') : q.answer)}</td>
+                                        <td className="border p-2 text-center">{q.level}</td>
+                                        <td className="border p-2 text-center">{q.weight}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                );
+            } else if (mode === 'norma') {
+                content = (
+                    <div>
+                        <Header title="Norma dan Pedoman Penilaian" />
+                        <div className="space-y-4 text-justify text-sm">
+                            <p><strong>1. Kriteria Ketuntasan Tujuan Pembelajaran (KKTP):</strong> {db.settings.kktp}</p>
+                            <p><strong>2. Bobot Soal:</strong> Total Bobot Maksimal = {db.questions.reduce((s, q) => s + q.weight, 0)}</p>
+                            <p><strong>3. Rumus Penilaian:</strong> Nilai = (Skor Perolehan / Skor Maksimal) x 100</p>
+                            <p><strong>4. Aturan Pilihan Ganda Kompleks (PGK):</strong> Full Credit. Siswa mendapat poin penuh jika memilih SELURUH opsi yang benar dan TIDAK memilih opsi yang salah.</p>
+                            <p><strong>5. Predikat Ketercapaian:</strong><br />90 - 100 : Sangat Baik<br />80 - 89 : Baik<br />75 - 79 : Cukup / Tuntas<br />&lt; 75 : Belum Tuntas (Perlu Bimbingan / Remedial)</p>
+                            <br /><br /><br />
+                            <div className="text-right">
+                                <p>Jepara, {new Date().toLocaleDateString('id-ID')}</p>
+                                <p>Mengetahui,</p>
+                                <p className="mb-16">Guru Pengampu KKA</p>
+                                <p className="font-bold underline">Tim Guru KKA ESPENTURA</p>
+                            </div>
+                        </div>
+                    </div>
+                );
+            } else if (mode === 'soal') {
+                const types = [
+                    { t: 'PG', title: 'A. PILIHAN GANDA (Pilih satu jawaban paling tepat)' },
+                    { t: 'PGK', title: 'B. PILIHAN GANDA KOMPLEKS (Pilih pernyataan-pernyataan yang benar, jawaban bisa lebih dari satu)' },
+                    { t: 'BS', title: 'C. BENAR ATAU SALAH (Tentukan pernyataan berikut benar atau salah)' },
+                    { t: 'IS', title: 'D. ISIAN SINGKAT (Tuliskan jawaban singkat)' }
+                ];
+                content = (
+                    <div>
+                        <Header title="Naskah Soal Ujian" />
+                        <div className="mb-6 flex gap-12 font-bold text-sm border-b pb-4">
+                            <div>Nama: ....................................</div>
+                            <div>Kelas: ....................</div>
+                            <div>NIS: ....................</div>
+                        </div>
+                        {types.map(group => {
+                            const qs = db.questions.filter(q => q.type === group.t);
+                            if (!qs.length) return null;
+                            return (
+                                <div key={group.t} className="mb-6">
+                                    <h3 className="font-bold mb-4 bg-gray-200 p-2 text-sm">{group.title}</h3>
+                                    {qs.map(q => (
+                                        <div key={q.id} className="mb-6 break-inside-avoid text-sm">
+                                            <div className="flex gap-2">
+                                                <div className="font-bold">{q.no}.</div>
+                                                <div className="flex-1">
+                                                    {q.stimulus && <div className="mb-2 italic border-l-2 border-black pl-2">{q.stimulus}</div>}
+                                                    <div className="mb-2 font-medium">{q.text}</div>
+                                                    {q.type === 'PG' && <div className="space-y-1 pl-4">{Object.entries(q.options).map(([k, v]) => <div key={k}>{k}. {v}</div>)}</div>}
+                                                    {q.type === 'PGK' && <div className="space-y-1 pl-4">{Object.entries(q.options).map(([k, v]) => <div key={k}>[   ] {v}</div>)}</div>}
+                                                    {q.type === 'BS' && <div className="space-y-1 pl-4">[   ] BENAR &nbsp;&nbsp;&nbsp;&nbsp; [   ] SALAH</div>}
+                                                    {q.type === 'IS' && <div className="mt-4 border-b border-black w-64"></div>}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            );
+                        })}
+                    </div>
+                );
+            } else if (mode === 'student-result' && data) {
+                content = (
+                    <div className="p-8 border-4 border-double border-gray-300">
+                        <div className="text-center mb-8 border-b-2 border-black pb-4">
+                            <h1 className="text-2xl font-bold">LAPORAN HASIL ASESMEN KKA</h1>
+                            <h2 className="text-lg">{db.settings.school}</h2>
+                        </div>
+                        <table className="w-full mb-8 border-none text-base">
+                            <tbody>
+                                <tr><td className="w-36 font-bold border-none py-1">Nama Siswa</td><td className="border-none py-1">: {data.user.name}</td></tr>
+                                <tr><td className="w-36 font-bold border-none py-1">NIS / Kelas</td><td className="border-none py-1">: {data.user.nis} / {data.user.class}</td></tr>
+                                <tr><td className="w-36 font-bold border-none py-1">Tanggal Ujian</td><td className="border-none py-1">: {data.date}</td></tr>
+                            </tbody>
+                        </table>
+                        <div className="grid grid-cols-2 gap-8 mb-12">
+                            <div className="border p-4 text-center bg-gray-50">
+                                <h3 className="font-bold mb-4">Statistik Jawaban</h3>
+                                <div className="text-base">Benar: {data.stats.correct}</div>
+                                <div className="text-base">Salah: {data.stats.wrong}</div>
+                                <div className="text-base">Kosong: {data.stats.empty}</div>
+                            </div>
+                            <div className="border p-4 text-center flex flex-col justify-center items-center">
+                                <h3 className="font-bold mb-2">Nilai Akhir</h3>
+                                <div className="text-6xl font-bold mb-2">{data.score}</div>
+                                <div className={`text-lg font-bold px-4 py-1 border ${data.passed ? 'border-green-500 text-green-700' : 'border-red-500 text-red-700'}`}>{data.passed ? 'TUNTAS' : 'BELUM TUNTAS'}</div>
+                                <div className="text-xs text-gray-500 mt-2">Batas KKTP: {data.kktp}</div>
+                            </div>
+                        </div>
+                        <div className="flex justify-end text-center mt-16 text-sm">
+                            <div>
+                                <p>Jepara, {data.date}</p>
+                                <p className="mb-20">Guru Pengampu / Administrator</p>
+                                <p className="font-bold underline">Tim Guru KKA ESPENTURA</p>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="bg-white min-h-screen">
+                    <div className="no-print p-4 bg-gray-800 text-white flex justify-between items-center fixed top-0 w-full z-50">
+                        <div className="font-bold flex items-center gap-2"><i className="ph-bold ph-printer"></i> Mode Cetak Dokumen</div>
+                        <div className="flex gap-2">
+                            <Button variant="success" onClick={() => window.print()}><i className="ph-bold ph-printer"></i> Cetak Sekarang</Button>
+                            <Button variant="secondary" onClick={onClose}><i className="ph-bold ph-x"></i> Tutup</Button>
+                        </div>
+                    </div>
+                    <div className="p-8 pt-24 print:p-0 print:pt-0 max-w-4xl mx-auto text-black print:text-black">
+                        {content}
+                    </div>
+                </div>
+            );
+        };
+
+        const App = () => {
+            const [db, setDb] = useState({
+                settings: {
+                    name: "Penilaian Sumatif Semester Satu KKA",
+                    school: "SMP Negeri 1 Jepara",
+                    class: "Kelas 7",
+                    duration: 90,
+                    kktp: 75,
+                    randomizeQuestions: true,
+                    randomizeOptions: true,
+                    status: "Aktif",
+                    pgkFullCredit: true
+                },
+                questions: rawQuestions,
+                results: mockResults
+            });
+
+            const [currentView, setCurrentView] = useState('studentLogin');
+            const [currentUser, setCurrentUser] = useState(null);
+            const [currentExamSession, setCurrentExamSession] = useState(null);
+
+            const [printMode, setPrintMode] = useState(null);
+            const [printData, setPrintData] = useState(null);
+
+            useEffect(() => {
+                if (printMode) {
+                    setTimeout(() => { window.print(); }, 500);
+                }
+            }, [printMode]);
+
+            const closePrint = () => {
+                setPrintMode(null);
+                setPrintData(null);
+            };
+
+            const renderView = () => {
+                if (printMode) {
+                    return <PrintLayout mode={printMode} data={printData} db={db} onClose={closePrint} />;
+                }
+
+                switch (currentView) {
+                    case 'studentLogin':
+                        return <StudentLogin onLogin={(user) => { setCurrentUser(user); setCurrentView('studentDash'); }} onAdminClick={() => setCurrentView('adminLogin')} />;
+                    case 'studentDash':
+                        return <StudentDashboard user={currentUser} settings={db.settings} onStart={(session) => { setCurrentExamSession(session); setCurrentView('exam'); }} onLogout={() => { setCurrentUser(null); setCurrentView('studentLogin'); }} />;
+                    case 'exam':
+                        return <ExamEngine user={currentUser} settings={db.settings} questions={db.questions} session={currentExamSession} onFinish={(res) => { setDb(prev => ({ ...prev, results: [...prev.results, res] })); setCurrentExamSession(res); setCurrentView('studentResult'); }} />;
+                    case 'studentResult':
+                        return <StudentResult result={currentExamSession} settings={db.settings} onLogout={() => { setCurrentUser(null); setCurrentExamSession(null); setCurrentView('studentLogin'); }} onPrint={() => { setPrintData(currentExamSession); setPrintMode('student-result'); }} />;
+                    case 'adminLogin':
+                        return <AdminLogin onLogin={() => { setCurrentUser('admin'); setCurrentView('adminDash'); }} onBack={() => setCurrentView('studentLogin')} />;
+                    case 'adminDash':
+                        return <AdminDashboard db={db} setDb={setDb} onLogout={() => { setCurrentUser(null); setCurrentView('studentLogin'); }} onPrint={(mode, data) => { setPrintData(data); setPrintMode(mode); }} />;
+                    default:
+                        return <div>Halaman tidak ditemukan</div>;
+                }
+            };
+
+            return (
+                <div className="min-h-screen flex flex-col">
+                    {!printMode && (
+                        <nav className="bg-blue-800 text-white shadow-md p-4 flex justify-between items-center no-print">
+                            <div className="flex items-center gap-3">
+                                <div className="bg-white p-1 rounded-xl shadow-sm flex items-center justify-center">
+                                    <EspenturaLogo className="w-8 h-10" />
+                                </div>
+                                <div>
+                                    <h1 className="font-bold text-lg leading-tight tracking-wide">CBT KKA SMP</h1>
+                                    <p className="text-xs text-blue-200 font-medium">SMP Negeri 1 Jepara (ESPENTURA)</p>
+                                </div>
+                            </div>
+                            {currentUser && (
+                                <div className="flex items-center gap-3 text-sm">
+                                    <span className="hidden md:inline"><i className="ph-bold ph-user-circle mr-1"></i> {currentUser === 'admin' ? 'Administrator' : currentUser.name}</span>
+                                    {currentView !== 'exam' && (
+                                        <button onClick={() => { setCurrentUser(null); setCurrentView('studentLogin'); }} className="bg-blue-700 hover:bg-blue-600 px-3 py-1 rounded text-white transition">Logout</button>
+                                    )}
+                                </div>
+                            )}
+                        </nav>
+                    )}
+
+                    <main className={`flex-grow w-full mx-auto ${printMode ? 'print-container' : 'max-w-7xl'}`}>
+                        {renderView()}
+                    </main>
+
+                    {!printMode && (
+                        <footer className="bg-gray-800 text-gray-400 text-center py-4 text-sm mt-auto no-print">
+                            &copy; 2026 CBT KKA SMP - ESPENTURA. Dikembangkan untuk Asesmen Pendidikan SMP Negeri 1 Jepara.
+                        </footer>
+                    )}
+                </div>
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
